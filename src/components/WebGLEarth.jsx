@@ -137,8 +137,8 @@ export default function WebGLEarth({
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(38, w / h, 0.1, 2000);
-    // Zoomed out camera position by one wheel step (from z=16 to z=18.5)
-    camera.position.set(0, 4.5, 18.5);
+    // Zoomed out camera position by 2 mouse wheel steps (from z=18.5 to z=23.5)
+    camera.position.set(0, 5.8, 23.5);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -270,7 +270,7 @@ export default function WebGLEarth({
     controls.dampingFactor = 0.08;
     controls.rotateSpeed = 0.5;
     controls.minDistance = 7.5;
-    controls.maxDistance = 40;
+    controls.maxDistance = 60;
     controls.autoRotate = autoRotate;
     controls.autoRotateSpeed = 0.35;
     controls.enablePan = false;
