@@ -3,7 +3,7 @@ import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const RESEND_API_KEY = 're_UYu1MErj_LRrSLioUNW9JfjUjZyApesz9';
+const RESEND_API_KEY = 're_fqkFUP6v_NgiZK8xcb6JRQ8S5gfoUE4Jc';
 const SENDER_EMAIL = 'Zeno-Sky Mission Control <contact@india.zenosky.in>';
 const ADMIN_RECEIVER = 'contact@zenosky.in';
 
@@ -13,12 +13,7 @@ app.use(express.json());
 // 1. CelesTrak TLE Feed Proxy API (with NavIC / IRNSS and Indian Satellites)
 app.get('/api/tle', async (req, res) => {
   let group = req.query.group || 'stations';
-  
-  // Map 'navic' query to CelesTrak 'irnss' dataset
-  let celestrakGroup = group;
-  if (group === 'navic') {
-    celestrakGroup = 'irnss';
-  }
+  let celestrakGroup = group === 'navic' ? 'irnss' : group;
 
   try {
     const celestrakUrl = `https://celestrak.org/NORAD/elements/gp.php?GROUP=${encodeURIComponent(celestrakGroup)}&FORMAT=tle`;
@@ -83,7 +78,7 @@ app.post('/api/send-email', async (req, res) => {
         <div class="field-value">${organization || 'N/A'}</div>
 
         <div class="field-label">EMAIL</div>
-        <div class="field-value"><a href="mailto:${email}" class="link-value">${email}</a></div>
+        <div class="field-value"><a href="mailto:${email}" class="link-value">${email || 'N/A'}</a></div>
 
         <div class="field-label">PHONE</div>
         <div class="field-value">${phone || 'N/A'}</div>
@@ -164,7 +159,7 @@ app.post('/api/send-email', async (req, res) => {
       })
     });
 
-    const customerFetch = fetch('https://api.resend.com/emails', {
+    const customerFetch = email ? fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -176,18 +171,16 @@ app.post('/api/send-email', async (req, res) => {
         subject: `Transmission Received - Zeno-Sky Mission Control`,
         html: customerEmailHtml
       })
-    });
+    }) : Promise.resolve();
 
-    const [adminRes, customerRes] = await Promise.all([adminFetch, customerFetch]);
+    const [adminRes] = await Promise.all([adminFetch, customerFetch]);
     const adminData = await adminRes.json();
-    const customerData = await customerRes.json();
 
-    console.log('[RESEND API SUCCESS] Admin Email ID:', adminData.id, '| Customer Email ID:', customerData.id);
+    console.log('[RESEND API SUCCESS] Admin Email ID:', adminData.id);
 
     return res.status(200).json({
       success: true,
-      adminId: adminData.id,
-      customerId: customerData.id
+      adminId: adminData.id
     });
   } catch (err) {
     console.error('[RESEND API ERROR]', err);

@@ -29,7 +29,7 @@ $phone = isset($data['phone']) ? htmlspecialchars($data['phone']) : 'N/A';
 $service = isset($data['service']) ? htmlspecialchars($data['service']) : 'General Inquiry';
 $message = isset($data['message']) ? htmlspecialchars($data['message']) : 'N/A';
 
-$resendApiKey = 're_UYu1MErj_LRrSLioUNW9JfjUjZyApesz9';
+$resendApiKey = 're_fqkFUP6v_NgiZK8xcb6JRQ8S5gfoUE4Jc';
 $senderEmail = 'Zeno-Sky Mission Control <contact@india.zenosky.in>';
 $adminReceiver = 'contact@zenosky.in';
 

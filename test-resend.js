@@ -1,7 +1,7 @@
-const RESEND_API_KEY = 're_UYu1MErj_LRrSLioUNW9JfjUjZyApesz9';
+const RESEND_API_KEY = 're_fqkFUP6v_NgiZK8xcb6JRQ8S5gfoUE4Jc';
 
 async function testResend() {
-  console.log('Testing Resend API call...');
+  console.log('Testing new Resend API key...');
   try {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -12,7 +12,7 @@ async function testResend() {
       body: JSON.stringify({
         from: 'Zeno-Sky Mission Control <contact@india.zenosky.in>',
         to: ['contact@zenosky.in'],
-        subject: 'Test Transmission from Resend API',
+        subject: 'Test Transmission from New Resend API Key',
         html: '<p>Test email from Zeno-Sky Aerospace</p>'
       })
     });
