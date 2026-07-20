@@ -12,8 +12,9 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="md:col-span-2">
             <Logo className="h-12 w-auto mb-5" />
-            <p className="text-slate-400 text-sm max-w-md leading-relaxed">
-              Engineering the future of space missions through world-class astrodynamics, mission design, and education.
+            <p className="text-slate-300 text-sm font-medium max-w-md leading-relaxed">
+              Design. Analyze. Achieve. <br />
+              <span className="text-slate-400 font-normal">Advanced Mission Analysis for a Smarter Tomorrow.</span>
             </p>
             <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-400/10 border border-cyan-400/20 text-xs text-cyan-300 font-mono-space">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 pulse-dot" /> ISRO SPACE TUTOR CERTIFIED
@@ -49,29 +50,17 @@ export default function Footer() {
                 <a href="https://zenosky.in" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-300 transition">zenosky.in</a>
               </li>
               <li className="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-cyan-300 flex-shrink-0">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                  <rect width="4" height="12" x="2" y="9" />
-                  <circle cx="4" cy="4" r="2" />
-                </svg>
-                <a href="https://in.linkedin.com/company/zeno-sky-aerospace-and-defense" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-300 transition">Zeno-Sky Aerospace</a>
-              </li>
-              <li className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-cyan-300 mt-0.5 flex-shrink-0" />
+                <MapPin className="w-4 h-4 text-cyan-300 flex-shrink-0" />
                 <span>Delhi & Bangalore, India</span>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Sub-footer */}
-        <div className="mt-12 pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-500 font-mono-space">
-          <div>© 2026 Zeno-Sky Aerospace & Defence. All systems nominal.</div>
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 pulse-dot" /> MISSION STATUS: ACTIVE
-            </span>
-            <span>v1.0.0</span>
+        <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+          <div>© {new Date().getFullYear()} Zeno-Sky Aerospace & Defence. All rights reserved.</div>
+          <div className="font-mono-space text-[10px] text-cyan-400/70">
+            DESIGN. ANALYZE. ACHIEVE. · ISRO SPACE TUTOR
           </div>
         </div>
       </div>

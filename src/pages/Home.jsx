@@ -1,52 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  ArrowRight, Play, Orbit, Satellite, BookOpen, ChevronRight, 
-  Target, GitBranch, ChartLine, Cpu, Shield, Radar, Sparkles 
+  Rocket, 
+  Orbit, 
+  GraduationCap, 
+  Cpu, 
+  Layers, 
+  ShieldCheck, 
+  ArrowRight,
+  Sparkles,
+  Satellite,
+  Compass,
+  Radar
 } from 'lucide-react';
 import WebGLEarth from '../components/WebGLEarth';
 
-const ALL_GROUPS = [
-  'navic',
-  'stations',
-  'starlink',
-  'gps-ops',
-  'iridium-NEXT',
-  'oneweb',
-  'galileo',
-  'weather'
-];
-
 export default function Home() {
-  const [heroSat, setHeroSat] = useState(null);
-
-  const capabilities = [
-    {
-      title: 'Mission Design',
-      desc: 'End-to-end mission planning and analysis for satellite missions — from concept exploration to launch readiness.',
-      icon: Orbit,
-      gradient: 'from-cyan-400 to-blue-500',
-    },
-    {
-      title: 'Astrodynamics Solutions',
-      desc: 'Orbit propagation, maneuver planning, constellation design, coverage analysis, and mission optimization.',
-      icon: Satellite,
-      gradient: 'from-purple-400 to-fuchsia-500',
-    },
-    {
-      title: 'Space Education',
-      desc: 'Workshops, university collaborations, laboratory setup, and professional training programs.',
-      icon: BookOpen,
-      gradient: 'from-blue-400 to-cyan-400',
-    },
+  const highlights = [
+    { title: 'Astrodynamics Software', desc: 'Enterprise mission design using FreeFlyer® for orbit propagation, maneuver planning, and analysis.', icon: Rocket },
+    { title: 'University Partnerships', desc: 'Empowering aerospace education with curriculum support, labs, and hands-on mission software.', icon: GraduationCap },
+    { title: 'Mission Support', desc: 'Custom trajectory design, constellation design, ground contact analysis, and mission lifecycle support.', icon: Cpu },
   ];
 
-  const steps = [
-    { num: '01', title: 'Mission Concept', desc: 'Define mission objectives, constraints and success criteria.', icon: Target },
-    { num: '02', title: 'Design', desc: 'Trajectory design, spacecraft architecture and mission phases.', icon: GitBranch },
-    { num: '03', title: 'Analysis', desc: 'Astrodynamics analysis, coverage, contact and delta-V budgets.', icon: ChartLine },
-    { num: '04', title: 'Simulation', desc: 'High fidelity propagation, Monte Carlo and 3D visualization.', icon: Cpu },
-    { num: '05', title: 'Validation', desc: 'Independent verification, safety, and collision avoidance checks.', icon: Shield },
+  const workflowSteps = [
+    { num: '01', title: 'Mission Concept', desc: 'Defining orbit requirements, payload objectives, and mission constraints.', icon: Compass },
+    { num: '02', title: 'Trajectory Design', desc: 'High-fidelity orbit propagation, inclination changes, and transfer orbits.', icon: Orbit },
+    { num: '03', title: 'Constellation & Coverage', desc: 'Ground station access, revisit rate, and inter-satellite linkage.', icon: Satellite },
+    { num: '04', title: 'Space Environment', desc: 'Atmospheric drag, radiation modeling, and perturbation analysis.', icon: Layers },
+    { num: '05', title: 'Education & Training', desc: 'Student workshops, hands-on lab setups, and certified aerospace modules.', icon: GraduationCap },
     { num: '06', title: 'Operations', desc: 'Flight support, maneuver planning and mission automation.', icon: Radar },
   ];
 
@@ -63,11 +44,20 @@ export default function Home() {
                 MISSION READY · ISRO SPACE TUTOR CERTIFIED
               </div>
 
+              {/* Exact Tagline from Provided Image */}
               <h1 className="font-orbitron font-black text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
-                Engineering the <br />
-                <span className="text-gradient">Future of Space</span> <br />
-                <span className="text-white">Missions</span>
+                <span className="text-white block">DESIGN.</span>
+                <span className="bg-gradient-to-r from-purple-400 via-fuchsia-400 to-indigo-400 bg-clip-text text-transparent block">ANALYZE.</span>
+                <span className="text-white block">ACHIEVE.</span>
               </h1>
+
+              {/* Subtitle with Accent Bar */}
+              <div className="mt-6 flex items-center gap-3">
+                <div className="w-1.5 h-12 rounded-full bg-gradient-to-b from-purple-500 to-cyan-400 flex-shrink-0" />
+                <p className="text-slate-200 text-lg md:text-xl font-medium tracking-wide">
+                  Advanced Mission Analysis for a Smarter Tomorrow.
+                </p>
+              </div>
 
               <div className="mt-6 flex flex-wrap gap-2.5 items-center text-xs md:text-sm font-mono-space text-cyan-200/90">
                 <span>Mission Design</span>
@@ -88,89 +78,52 @@ export default function Home() {
                   to="/products"
                   className="group relative px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500 text-slate-900 font-semibold flex items-center gap-2 hover:scale-[1.02] transition glow-cyan"
                 >
-                  Explore Solutions <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
+                  Explore Capabilities <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
                 </Link>
+                
                 <Link
-                  to="/contact"
-                  className="px-6 py-3.5 rounded-xl glass border border-white/10 hover:border-cyan-400/50 text-white font-medium flex items-center gap-2 transition"
+                  to="/tracker"
+                  className="px-6 py-3.5 rounded-xl glass border border-white/10 hover:border-cyan-400/40 text-slate-200 font-semibold flex items-center gap-2 transition"
                 >
-                  <Play className="w-4 h-4 text-cyan-300 fill-cyan-300/30" /> Book a Consultation
+                  <Orbit className="w-4 h-4 text-cyan-300" /> Live Satellite Tracking
                 </Link>
               </div>
             </div>
 
-            {/* Clean Un-boxed 3D WebGL Earth Showcase floating on landing page */}
-            <div className="relative h-[600px] flex items-center justify-center">
-              <div className="w-full h-full relative">
-                <WebGLEarth
-                  height={580}
-                  groups={ALL_GROUPS}
-                  maxSats={400}
-                  onSelect={(sat) => setHeroSat(sat)}
-                  onSelectSatellite={(sat) => setHeroSat(sat)}
-                  showLegend={true}
-                />
-
-                {/* Target Lock Floating Hud Overlay */}
-                {heroSat && (
-                  <div className="absolute bottom-6 left-4 right-4 glass rounded-xl p-3 border border-cyan-400/30 text-xs font-mono-space flex items-center justify-between pointer-events-none shadow-2xl animate-in fade-in duration-200 z-10">
-                    <div>
-                      <div className="text-cyan-300 font-bold font-orbitron">{heroSat.name}</div>
-                      <div className="text-slate-400 text-[10px]">
-                        LAT: {(heroSat.latitude ?? heroSat.lat ?? 0).toFixed(2)}° · LON: {(heroSat.longitude ?? heroSat.lon ?? 0).toFixed(2)}°
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-purple-300 font-bold">{(heroSat.altitude ?? heroSat.alt ?? 0).toFixed(1)} KM</div>
-                      <div className="text-slate-400 text-[10px]">VEL: {(heroSat.velocity ?? heroSat.vel ?? 0).toFixed(2)} KM/S</div>
-                    </div>
-                  </div>
-                )}
+            {/* Interactive 3D WebGL Earth Showcase */}
+            <div className="relative">
+              <div className="aspect-square max-w-lg mx-auto relative">
+                <div className="absolute inset-0 rounded-full bg-cyan-500/10 blur-3xl" />
+                <WebGLEarth autoRotate={true} />
               </div>
-
-              {/* Ambient Glow Aura */}
-              <div className="absolute -top-10 -right-10 w-64 h-64 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none -z-10" />
-              <div className="absolute -bottom-10 -left-10 w-64 h-64 rounded-full bg-purple-500/15 blur-3xl pointer-events-none -z-10" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Capabilities Section */}
-      <section className="relative py-24">
+      {/* Highlights Grid */}
+      <section className="py-20 relative border-t border-white/5">
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <div className="text-xs font-mono-space text-cyan-300 tracking-[0.3em] mb-3">
-              // CAPABILITIES
-            </div>
-            <h2 className="font-orbitron text-4xl md:text-5xl font-bold">What We Do</h2>
-            <p className="mt-4 text-slate-400">
-              End-to-end space mission capability — from concept to constellation operations.
-            </p>
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <div className="text-xs font-mono-space text-cyan-300 tracking-widest uppercase mb-2">// CORE CAPABILITIES</div>
+            <h2 className="font-orbitron text-3xl md:text-4xl font-bold">End-to-End Space Engineering</h2>
+            <p className="mt-3 text-slate-400 text-sm">Empowering aerospace missions with certified tools, education, and flight dynamics support.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {capabilities.map((cap, i) => {
-              const Icon = cap.icon;
+            {highlights.map((item, idx) => {
+              const Icon = item.icon;
               return (
-                <div
-                  key={i}
-                  className="group relative glass-strong rounded-2xl p-7 overflow-hidden hover:border-cyan-400/40 transition duration-300 flex flex-col justify-between"
+                <div 
+                  key={idx}
+                  className="glass-strong rounded-2xl p-8 border border-white/10 hover:border-cyan-400/40 transition group relative overflow-hidden"
                 >
-                  <div className={`absolute -top-16 -right-16 w-40 h-40 rounded-full bg-gradient-to-br ${cap.gradient} opacity-20 blur-3xl group-hover:opacity-40 transition`} />
-                  <div>
-                    <div className={`inline-flex w-14 h-14 rounded-xl bg-gradient-to-br ${cap.gradient} items-center justify-center mb-5 shadow-lg`}>
-                      <Icon className="w-7 h-7 text-slate-950" />
-                    </div>
-                    <h3 className="font-orbitron text-2xl font-semibold mb-3">{cap.title}</h3>
-                    <p className="text-slate-400 leading-relaxed text-sm">{cap.desc}</p>
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/15 transition" />
+                  <div className="w-12 h-12 rounded-xl bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                    <Icon className="w-6 h-6 text-cyan-300" />
                   </div>
-                  <Link
-                    to="/contact"
-                    className="mt-6 inline-flex items-center gap-2 text-sm text-cyan-300 group-hover:gap-3 transition-all font-medium"
-                  >
-                    Learn more <ChevronRight className="w-4 h-4" />
-                  </Link>
+                  <h3 className="font-orbitron font-bold text-xl mb-3 text-slate-100">{item.title}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
                 </div>
               );
             })}
@@ -178,99 +131,62 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Mission Lifecycle Section */}
-      <section className="relative py-24 bg-slate-950/40 border-y border-white/5">
+      {/* Mission Workflow */}
+      <section className="py-20 relative bg-slate-950/40 border-t border-white/5">
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <div className="text-xs font-mono-space text-cyan-300 tracking-[0.3em] mb-3">
-              // MISSION LIFECYCLE
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div>
+              <div className="text-xs font-mono-space text-purple-300 tracking-widest uppercase mb-2">// MISSION LIFE CYCLE</div>
+              <h2 className="font-orbitron text-3xl md:text-4xl font-bold">How We Engineer Space Missions</h2>
             </div>
-            <h2 className="font-orbitron text-4xl md:text-5xl font-bold">
-              Why <span className="text-gradient">Zeno-Sky</span>
-            </h2>
-            <p className="mt-4 text-slate-400">
+            <p className="text-slate-400 text-sm max-w-md">
               A proven mission engineering flow, from first sketch to on-orbit success.
             </p>
           </div>
 
-          <div className="relative max-w-4xl mx-auto">
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-cyan-400/40 to-transparent" />
-
-            <div className="space-y-8">
-              {steps.map((step, idx) => {
-                const StepIcon = step.icon;
-                const isEven = idx % 2 === 1;
-
-                return (
-                  <div
-                    key={idx}
-                    className={`relative grid md:grid-cols-2 gap-6 items-center ${
-                      isEven ? 'md:[&>*:first-child]:order-2' : ''
-                    }`}
-                  >
-                    <div className={`glass-strong rounded-2xl p-6 ml-12 md:ml-0 ${isEven ? 'md:ml-10' : 'md:mr-10'}`}>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="w-10 h-10 rounded-lg bg-cyan-400/10 border border-cyan-400/30 flex items-center justify-center">
-                          <StepIcon className="w-5 h-5 text-cyan-300" />
-                        </div>
-                        <div className="font-orbitron text-lg font-semibold">{step.title}</div>
-                      </div>
-                      <p className="text-slate-400 text-sm leading-relaxed">{step.desc}</p>
-                    </div>
-
-                    <div className="hidden md:block" />
-
-                    <div className="absolute left-4 md:left-1/2 -translate-x-1/2 top-6">
-                      <div className="w-4 h-4 rounded-full bg-cyan-400 pulse-dot shadow-[0_0_12px_#38bdf8]" />
-                    </div>
-
-                    <div className="absolute left-10 md:hidden top-4 text-[10px] font-mono-space text-cyan-400">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {workflowSteps.map((step) => {
+              const Icon = step.icon;
+              return (
+                <div key={step.num} className="glass rounded-xl p-6 border border-white/5 hover:border-purple-400/30 transition">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="font-mono-space text-xs text-purple-300 font-bold px-2.5 py-1 rounded bg-purple-400/10">
                       STEP {step.num}
-                    </div>
+                    </span>
+                    <Icon className="w-5 h-5 text-slate-400" />
                   </div>
-                );
-              })}
-            </div>
+                  <h4 className="font-orbitron font-bold text-lg text-slate-100 mb-2">{step.title}</h4>
+                  <p className="text-slate-400 text-xs leading-relaxed">{step.desc}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Launch CTA Banner */}
-      <section className="relative py-28">
+      {/* ISRO Space Tutor Banner */}
+      <section className="py-16 relative border-t border-white/5 overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="relative overflow-hidden glass-strong rounded-3xl p-10 md:p-16 text-center border border-cyan-400/20 shadow-2xl">
-            <div className="absolute inset-0 opacity-40 pointer-events-none">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-cyan-500/20 blur-3xl" />
-              <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-purple-500/20 blur-3xl" />
-            </div>
-
-            <div className="relative z-10 max-w-3xl mx-auto">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-cyan-400/20 text-xs font-mono-space text-cyan-300 mb-6">
-                <Sparkles className="w-3.5 h-3.5" /> T-MINUS ZERO
+          <div className="glass-strong rounded-3xl p-8 md:p-12 border border-cyan-400/30 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+              <div>
+                <div className="inline-flex items-center gap-2 text-xs font-mono-space text-cyan-300 mb-3">
+                  <ShieldCheck className="w-4 h-4 text-cyan-400" /> OFFICIAL PARTNERSHIP & CERTIFICATION
+                </div>
+                <h3 className="font-orbitron text-2xl md:text-3xl font-extrabold text-slate-100">
+                  Certified ISRO Space Tutor & Aerospace Educator
+                </h3>
+                <p className="mt-2 text-slate-300 text-sm max-w-xl">
+                  Official partner conducting space education, astrodynamics workshops, and satellite engineering training for students and professionals across India.
+                </p>
               </div>
-
-              <h2 className="font-orbitron text-4xl md:text-6xl font-black leading-tight">
-                Ready to <span className="text-gradient">Launch</span> Your Mission?
-              </h2>
-
-              <p className="mt-4 text-slate-300 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
-                From first orbit to constellation ops — we’ll help you get there. Let’s design a mission worth remembering.
-              </p>
-
-              <div className="mt-8 flex justify-center gap-4 flex-wrap">
-                <Link
-                  to="/contact"
-                  className="px-7 py-4 rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500 text-slate-900 font-semibold flex items-center gap-2 glow-cyan hover:scale-[1.02] transition"
-                >
-                  Contact Zeno-Sky <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  to="/products"
-                  className="px-7 py-4 rounded-xl glass border border-white/10 hover:border-cyan-400/40 text-white font-medium transition"
-                >
-                  View Capabilities
-                </Link>
-              </div>
+              <Link
+                to="/about"
+                className="px-6 py-3.5 rounded-xl bg-white text-slate-950 font-bold text-sm hover:bg-slate-200 transition flex-shrink-0"
+              >
+                Learn More About Us
+              </Link>
             </div>
           </div>
         </div>
