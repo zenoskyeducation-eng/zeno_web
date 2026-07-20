@@ -33,11 +33,11 @@ export default function Home() {
 
   return (
     <main className="pt-20">
-      {/* Hero Section - Prominent 3D Earth & Responsive Scaling */}
+      {/* Hero Section - Prominent Large 3D Earth Showcase Container */}
       <section className="relative min-h-[85vh] lg:min-h-[88vh] flex items-center overflow-hidden py-6 md:py-8">
         <div className="absolute inset-0 grid-bg pointer-events-none opacity-40" />
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
+          <div className="grid lg:grid-cols-[1fr_1.15fr] gap-8 lg:gap-10 items-center">
             <div>
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass border border-cyan-400/30 text-xs font-mono-space text-cyan-300 mb-4 shadow-lg">
                 <span className="w-2 h-2 rounded-full bg-cyan-400 pulse-dot" />
@@ -91,9 +91,9 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Interactive 3D WebGL Earth Showcase - Increased Size for Prominent Visibility */}
+            {/* Interactive 3D WebGL Earth Showcase - Significantly Increased Height and Width */}
             <div className="relative">
-              <div className="w-full aspect-square max-w-sm sm:max-w-md lg:max-w-xl mx-auto relative h-[380px] sm:h-[460px] lg:h-[520px]">
+              <div className="w-full aspect-square max-w-md sm:max-w-xl lg:max-w-2xl xl:max-w-3xl mx-auto relative h-[440px] sm:h-[540px] lg:h-[620px] xl:h-[680px]">
                 <div className="absolute inset-0 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none" />
                 <WebGLEarth autoRotate={true} height="100%" />
               </div>
