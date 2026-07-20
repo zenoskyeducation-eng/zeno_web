@@ -3,7 +3,7 @@ import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const RESEND_API_KEY = 're_fqkFUP6v_NgiZK8xcb6JRQ8S5gfoUE4Jc';
+const RESEND_API_KEY = 're_iW7xPSB1_82yaAJgAnVxcVP1VKwHDtqJH';
 const SENDER_EMAIL = 'Zeno-Sky Mission Control <contact@india.zenosky.in>';
 const ADMIN_RECEIVER = 'contact@zenosky.in';
 

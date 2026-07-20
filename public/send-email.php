@@ -22,14 +22,14 @@ if (!$data) {
     exit();
 }
 
-$name = isset($data['name']) ? htmlspecialchars($data['name']) : 'N/A';
-$organization = isset($data['organization']) ? htmlspecialchars($data['organization']) : 'N/A';
-$email = isset($data['email']) ? filter_var($data['email'], FILTER_SANITIZE_EMAIL) : '';
-$phone = isset($data['phone']) ? htmlspecialchars($data['phone']) : 'N/A';
-$service = isset($data['service']) ? htmlspecialchars($data['service']) : 'General Inquiry';
-$message = isset($data['message']) ? htmlspecialchars($data['message']) : 'N/A';
+$name = !empty($data['name']) ? htmlspecialchars($data['name']) : 'Website Visitor';
+$organization = !empty($data['organization']) ? htmlspecialchars($data['organization']) : 'N/A';
+$email = !empty($data['email']) ? filter_var($data['email'], FILTER_SANITIZE_EMAIL) : '';
+$phone = !empty($data['phone']) ? htmlspecialchars($data['phone']) : 'N/A';
+$service = !empty($data['service']) ? htmlspecialchars($data['service']) : 'General Inquiry';
+$message = !empty($data['message']) ? htmlspecialchars($data['message']) : 'N/A';
 
-$resendApiKey = 're_fqkFUP6v_NgiZK8xcb6JRQ8S5gfoUE4Jc';
+$resendApiKey = 're_iW7xPSB1_82yaAJgAnVxcVP1VKwHDtqJH';
 $senderEmail = 'Zeno-Sky Mission Control <contact@india.zenosky.in>';
 $adminReceiver = 'contact@zenosky.in';
 
@@ -80,28 +80,36 @@ $customerHtml = "
 </html>
 ";
 
-// Helper function to send email via Resend API
+// Helper function to send email via Resend API with Hostinger cURL SSL compatibility
 function sendResendEmail($apiKey, $from, $to, $subject, $html) {
     $ch = curl_init('https://api.resend.com/emails');
     $payload = json_encode([
         'from' => $from,
-        'to' => [$to],
+        'to' => is_array($to) ? $to : [$to],
         'subject' => $subject,
         'html' => $html
     ]);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 20);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json',
         'Authorization: Bearer ' . $apiKey
     ]);
     $response = curl_exec($ch);
+    if (curl_errno($ch)) {
+        $error_msg = curl_error($ch);
+        curl_close($ch);
+        return ['error' => $error_msg];
+    }
     curl_close($ch);
     return json_decode($response, true);
 }
 
-// 1. Send Admin Email
+// 1. Send Admin Email to contact@zenosky.in
 $adminResult = sendResendEmail($resendApiKey, $senderEmail, $adminReceiver, "New Transmission - Inquiry from {$name} ({$service})", $adminHtml);
 
 // 2. Send Customer Email if provided
@@ -112,6 +120,6 @@ if (!empty($email)) {
 
 echo json_encode([
     'success' => true,
-    'adminId' => isset($adminResult['id']) ? $adminResult['id'] : null,
-    'customerId' => isset($customerResult['id']) ? $customerResult['id'] : null
+    'adminResult' => $adminResult,
+    'customerResult' => $customerResult
 ]);
