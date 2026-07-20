@@ -1,7 +1,8 @@
-const RESEND_API_KEY = 're_iW7xPSB1_82yaAJgAnVxcVP1VKwHDtqJH';
+import fs from 'fs';
+const RESEND_API_KEY = fs.readFileSync('resend_key.secret', 'utf8').trim();
 
 async function testContactFormDispatch() {
-  console.log('Testing new Full Access Resend API key...');
+  console.log('Testing Resend API key:', RESEND_API_KEY.slice(0, 12) + '...');
   const formData = {
     name: 'Raj',
     organization: 'SAM SAA',

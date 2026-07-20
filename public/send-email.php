@@ -29,21 +29,30 @@ $phone = !empty($data['phone']) ? htmlspecialchars($data['phone']) : 'N/A';
 $service = !empty($data['service']) ? htmlspecialchars($data['service']) : 'General Inquiry';
 $message = !empty($data['message']) ? htmlspecialchars($data['message']) : 'N/A';
 
-// Read API key securely from server secret file or environment variable (bypasses GitHub secret scanner)
+// Check all possible file paths for resend_key.secret on Hostinger
 $resendApiKey = '';
-$secretFile = __DIR__ . '/resend_key.secret';
-$secretFileParent = __DIR__ . '/../resend_key.secret';
+$possiblePaths = [
+    __DIR__ . '/resend_key.secret',
+    isset($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] . '/resend_key.secret' : '',
+    dirname(__DIR__) . '/resend_key.secret'
+];
 
-if (file_exists($secretFile)) {
-    $resendApiKey = trim(file_get_contents($secretFile));
-} elseif (file_exists($secretFileParent)) {
-    $resendApiKey = trim(file_get_contents($secretFileParent));
-} else {
+foreach ($possiblePaths as $p) {
+    if (!empty($p) && file_exists($p)) {
+        $content = trim(file_get_contents($p));
+        if (!empty($content)) {
+            $resendApiKey = $content;
+            break;
+        }
+    }
+}
+
+if (empty($resendApiKey)) {
     $resendApiKey = getenv('RESEND_API_KEY') ?: '';
 }
 
 if (empty($resendApiKey)) {
-    echo json_encode(['success' => false, 'error' => 'Resend API key missing on server']);
+    echo json_encode(['success' => false, 'error' => 'resend_key.secret file not found in public_html root']);
     exit();
 }
 
@@ -126,7 +135,7 @@ function sendResendEmail($apiKey, $from, $to, $subject, $html) {
     return json_decode($response, true);
 }
 
-// 1. Send Admin Email
+// 1. Send Admin Email to contact@zenosky.in
 $adminResult = sendResendEmail($resendApiKey, $senderEmail, $adminReceiver, "New Transmission - Inquiry from {$name} ({$service})", $adminHtml);
 
 // 2. Send Customer Email if provided
