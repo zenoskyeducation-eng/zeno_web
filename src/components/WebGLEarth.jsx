@@ -137,8 +137,8 @@ export default function WebGLEarth({
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(38, w / h, 0.1, 2000);
-    // Zoomed out camera position by 2 mouse wheel steps (from z=18.5 to z=23.5)
-    camera.position.set(0, 5.8, 23.5);
+    // Balanced camera position for 3D Earth display
+    camera.position.set(0, 4.8, 20.5);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));

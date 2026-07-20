@@ -33,18 +33,18 @@ export default function Home() {
 
   return (
     <main className="pt-20">
-      {/* Hero Section - Compact & Fit Above-the-Fold for All Screens */}
-      <section className="relative min-h-[82vh] lg:min-h-[85vh] flex items-center overflow-hidden py-4 md:py-6">
+      {/* Hero Section - Prominent 3D Earth & Responsive Scaling */}
+      <section className="relative min-h-[85vh] lg:min-h-[88vh] flex items-center overflow-hidden py-6 md:py-8">
         <div className="absolute inset-0 grid-bg pointer-events-none opacity-40" />
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass border border-cyan-400/30 text-[11px] font-mono-space text-cyan-300 mb-3 md:mb-4 shadow-lg">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 pulse-dot" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass border border-cyan-400/30 text-xs font-mono-space text-cyan-300 mb-4 shadow-lg">
+                <span className="w-2 h-2 rounded-full bg-cyan-400 pulse-dot" />
                 MISSION READY · ISRO SPACE TUTOR CERTIFIED
               </div>
 
-              {/* Responsive Compact Headline */}
+              {/* Exact Tagline from Provided Image */}
               <h1 className="font-orbitron font-black text-4xl sm:text-5xl lg:text-6xl leading-[1.08] tracking-tight">
                 <span className="text-white block">DESIGN.</span>
                 <span className="bg-gradient-to-r from-purple-400 via-fuchsia-400 to-indigo-400 bg-clip-text text-transparent block">ANALYZE.</span>
@@ -52,50 +52,50 @@ export default function Home() {
               </h1>
 
               {/* Subtitle with Accent Bar */}
-              <div className="mt-3 md:mt-4 flex items-center gap-2.5">
+              <div className="mt-4 flex items-center gap-3">
                 <div className="w-1.5 h-10 rounded-full bg-gradient-to-b from-purple-500 to-cyan-400 flex-shrink-0" />
                 <p className="text-slate-200 text-base sm:text-lg lg:text-xl font-medium tracking-wide">
                   Advanced Mission Analysis for a Smarter Tomorrow.
                 </p>
               </div>
 
-              <div className="mt-3 flex flex-wrap gap-2 items-center text-[11px] sm:text-xs font-mono-space text-cyan-200/90">
+              <div className="mt-4 flex flex-wrap gap-2.5 items-center text-xs font-mono-space text-cyan-200/90">
                 <span>Mission Design</span>
                 <span className="text-cyan-400">•</span>
                 <span>Astrodynamics</span>
                 <span className="text-cyan-400">•</span>
                 <span>Space Operations</span>
                 <span className="text-cyan-400">•</span>
-                <span>Satellite Planning</span>
+                <span>Satellite Mission Planning</span>
               </div>
 
-              <p className="mt-3 text-slate-300 text-xs sm:text-sm md:text-base max-w-xl leading-relaxed">
+              <p className="mt-4 text-slate-300 text-xs sm:text-sm md:text-base max-w-xl leading-relaxed">
                 Zeno-Sky enables organizations, startups, universities, and government agencies to design, analyze, and operate successful space missions using industry-leading astrodynamics tools and expertise.
               </p>
 
               {/* CTA Buttons - Directly Visible Above the Fold */}
-              <div className="mt-5 sm:mt-6 flex flex-wrap gap-3">
+              <div className="mt-6 flex flex-wrap gap-3.5">
                 <Link
                   to="/products"
-                  className="group relative px-5 py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500 text-slate-900 font-bold text-xs sm:text-sm flex items-center gap-2 hover:scale-[1.02] transition glow-cyan"
+                  className="group relative px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500 text-slate-900 font-bold text-xs sm:text-sm flex items-center gap-2 hover:scale-[1.02] transition glow-cyan"
                 >
                   Explore Capabilities <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
                 </Link>
                 
                 <Link
                   to="/tracker"
-                  className="px-5 py-3 rounded-xl glass border border-white/10 hover:border-cyan-400/40 text-slate-200 font-bold text-xs sm:text-sm flex items-center gap-2 transition"
+                  className="px-6 py-3.5 rounded-xl glass border border-white/10 hover:border-cyan-400/40 text-slate-200 font-bold text-xs sm:text-sm flex items-center gap-2 transition"
                 >
                   <Orbit className="w-4 h-4 text-cyan-300" /> Live Satellite Tracking
                 </Link>
               </div>
             </div>
 
-            {/* Interactive 3D WebGL Earth Showcase - Optimized Sizing */}
+            {/* Interactive 3D WebGL Earth Showcase - Increased Size for Prominent Visibility */}
             <div className="relative">
-              <div className="aspect-square max-w-xs sm:max-w-sm lg:max-w-md mx-auto relative">
-                <div className="absolute inset-0 rounded-full bg-cyan-500/10 blur-2xl" />
-                <WebGLEarth autoRotate={true} />
+              <div className="w-full aspect-square max-w-sm sm:max-w-md lg:max-w-xl mx-auto relative h-[380px] sm:h-[460px] lg:h-[520px]">
+                <div className="absolute inset-0 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none" />
+                <WebGLEarth autoRotate={true} height="100%" />
               </div>
             </div>
           </div>
