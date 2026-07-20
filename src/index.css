@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #030712;
+    color: #f9fafb;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+}
+
+/* Glassmorphism utility classes */
+.glass {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+}
+
+.glass-strong:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+/* Gradients and Glows */
+.text-gradient {
+  background: linear-gradient(135deg, #38bdf8 0%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow-cyan {
+  box-shadow: 0 0 30px -5px rgba(56, 189, 248, 0.5);
+}
+
+.glow-purple {
+  box-shadow: 0 0 30px -5px rgba(192, 132, 252, 0.5);
+}
+
+/* Grid & Stars background styling */
+.grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.space-bg {
+  background: radial-gradient(circle at 50% 20%, rgba(14, 165, 233, 0.08), transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.06), transparent 50%),
+              #030712;
+}
+
+/* Pulse dot indicator */
+.pulse-dot {
+  position: relative;
+}
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  background: inherit;
+  opacity: 0.75;
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* Orbit ring rotation animations */
+.orbit-ring {
+  animation: spinOrbit 20s linear infinite;
+}
+
+.orbit-ring-slow {
+  animation: spinOrbit 35s linear infinite;
+}
+
+.orbit-ring-rev {
+  animation: spinOrbitRev 25s linear infinite;
+}
+
+@keyframes spinOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinOrbitRev {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* Earth visual representation */
+.earth {
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #1e3a8a 0%, #0f172a 70%, #020617 100%);
+  box-shadow: 0 0 50px rgba(56, 189, 248, 0.3), inset 0 0 30px rgba(56, 189, 248, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.earth::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(56, 189, 248, 0.3) 1px, transparent 1px);
+  background-size: 16px 16px;
+  opacity: 0.6;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(3, 7, 18, 0.8);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.25);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.5);
+}
