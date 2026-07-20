@@ -1,22 +1,20 @@
 export async function sendTransmissionEmails(formData) {
-  const accessKey = formData.accessKey || 'e356e87f-e224-4f01-8bf8-d45db6ed5856'; // Default Web3Forms Key or custom key
+  const accessKey = '75ae936f-08d2-4c25-ae13-547c064707dc';
 
-  // 1. Try Web3Forms Direct Client Transmission (100% Free & No Server Required)
   try {
+    const bodyData = new FormData();
+    bodyData.append('access_key', accessKey);
+    bodyData.append('name', formData.name || 'Website Visitor');
+    bodyData.append('organization', formData.organization || 'N/A');
+    bodyData.append('email', formData.email || '');
+    bodyData.append('phone', formData.phone || 'N/A');
+    bodyData.append('service', formData.service || 'General Inquiry');
+    bodyData.append('subject', `New Inquiry from ${formData.name || 'Visitor'} (${formData.service || 'General'})`);
+    bodyData.append('message', `ORGANIZATION: ${formData.organization || 'N/A'}\nPHONE: ${formData.phone || 'N/A'}\nSERVICE: ${formData.service || 'General'}\n\nMESSAGE:\n${formData.message || 'N/A'}`);
+
     const w3Res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        access_key: accessKey,
-        name: formData.name || 'Website Visitor',
-        email: formData.email || 'contact@zenosky.in',
-        subject: `New Transmission - Inquiry from ${formData.name} (${formData.service})`,
-        from_name: 'Zeno-Sky Mission Control',
-        message: `NAME: ${formData.name}\nORGANIZATION: ${formData.organization}\nEMAIL: ${formData.email}\nPHONE: ${formData.phone}\nSERVICE: ${formData.service}\n\nMESSAGE:\n${formData.message}`
-      })
+      body: bodyData
     });
 
     if (w3Res.ok) {
@@ -24,10 +22,10 @@ export async function sendTransmissionEmails(formData) {
       if (data.success) return data;
     }
   } catch (e) {
-    console.warn('Web3Forms dispatch fallback engaged');
+    console.warn('Web3Forms dispatch error:', e);
   }
 
-  // 2. Fallback to Hostinger server-side PHP endpoint
+  // Fallback attempt to Hostinger PHP script
   try {
     const phpRes = await fetch('/send-email.php', {
       method: 'POST',
