@@ -1,9 +1,18 @@
 import express from 'express';
 import cors from 'cors';
+import fs from 'fs';
+import path from 'path';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const RESEND_API_KEY = 're_iW7xPSB1_82yaAJgAnVxcVP1VKwHDtqJH';
+
+// Read API key securely from local secret file or environment variable
+let RESEND_API_KEY = process.env.RESEND_API_KEY || '';
+const secretPath = path.resolve('resend_key.secret');
+if (fs.existsSync(secretPath)) {
+  RESEND_API_KEY = fs.readFileSync(secretPath, 'utf8').trim();
+}
+
 const SENDER_EMAIL = 'Zeno-Sky Mission Control <contact@india.zenosky.in>';
 const ADMIN_RECEIVER = 'contact@zenosky.in';
 
@@ -48,7 +57,10 @@ app.get('/api/tle', async (req, res) => {
 // 2. Contact Email Transmission API
 app.post('/api/send-email', async (req, res) => {
   const { name, organization, email, phone, service, message } = req.body;
-  console.log(`[TRANSMISSION RECEIVED] From: ${name} (${email}) | Service: ${service}`);
+
+  if (!RESEND_API_KEY) {
+    return res.status(500).json({ success: false, error: 'Resend API key missing on server' });
+  }
 
   const adminEmailHtml = `
     <!DOCTYPE html>
@@ -175,8 +187,6 @@ app.post('/api/send-email', async (req, res) => {
 
     const [adminRes] = await Promise.all([adminFetch, customerFetch]);
     const adminData = await adminRes.json();
-
-    console.log('[RESEND API SUCCESS] Admin Email ID:', adminData.id);
 
     return res.status(200).json({
       success: true,

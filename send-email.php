@@ -29,7 +29,24 @@ $phone = !empty($data['phone']) ? htmlspecialchars($data['phone']) : 'N/A';
 $service = !empty($data['service']) ? htmlspecialchars($data['service']) : 'General Inquiry';
 $message = !empty($data['message']) ? htmlspecialchars($data['message']) : 'N/A';
 
-$resendApiKey = 're_iW7xPSB1_82yaAJgAnVxcVP1VKwHDtqJH';
+// Read API key securely from server secret file or environment variable (bypasses GitHub secret scanner)
+$resendApiKey = '';
+$secretFile = __DIR__ . '/resend_key.secret';
+$secretFileParent = __DIR__ . '/../resend_key.secret';
+
+if (file_exists($secretFile)) {
+    $resendApiKey = trim(file_get_contents($secretFile));
+} elseif (file_exists($secretFileParent)) {
+    $resendApiKey = trim(file_get_contents($secretFileParent));
+} else {
+    $resendApiKey = getenv('RESEND_API_KEY') ?: '';
+}
+
+if (empty($resendApiKey)) {
+    echo json_encode(['success' => false, 'error' => 'Resend API key missing on server']);
+    exit();
+}
+
 $senderEmail = 'Zeno-Sky Mission Control <contact@india.zenosky.in>';
 $adminReceiver = 'contact@zenosky.in';
 
@@ -80,7 +97,7 @@ $customerHtml = "
 </html>
 ";
 
-// Helper function to send email via Resend API with Hostinger cURL SSL compatibility
+// Helper function to send email via Resend API
 function sendResendEmail($apiKey, $from, $to, $subject, $html) {
     $ch = curl_init('https://api.resend.com/emails');
     $payload = json_encode([
@@ -109,7 +126,7 @@ function sendResendEmail($apiKey, $from, $to, $subject, $html) {
     return json_decode($response, true);
 }
 
-// 1. Send Admin Email to contact@zenosky.in
+// 1. Send Admin Email
 $adminResult = sendResendEmail($resendApiKey, $senderEmail, $adminReceiver, "New Transmission - Inquiry from {$name} ({$service})", $adminHtml);
 
 // 2. Send Customer Email if provided
